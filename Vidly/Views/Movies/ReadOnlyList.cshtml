@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Vidly.Models.Movie>
+
+@{
+    ViewBag.Title = "MoviesList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>MoviesList</h2>
+
+@*@if (!Model.Any())
+{
+    <h1>We don't have any movies yet!</h1>
+}
+else
+{
+    
+}*@
+<table id="movies" class="table table-­bordered table-hover">
+    <thead>
+    <tr>
+        <th scope="col">Movies</th>
+        <th scope="col">Genre</th>
+    </tr>
+    </thead>
+    <tbody>
+    @*@foreach (var movie in Model)
+    {
+        <tr>
+            <td scope="row">@Html.ActionLink(movie.Name, "Edit", "Movies", new { id = movie.Id }, null)</td>
+            <td scope="row">@movie.GenreType.Name</td>
+        </tr>
+    }*@
+    </tbody>
+</table>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function() {
+            var table = $("#movies").dataTable({
+                ajax: {
+                    url: "/api/movies",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        data: "name",
+                    },
+                    {
+                        data:"genre.name"
+                    }
+                ]
+            });
+        });
+    </script>
+}
